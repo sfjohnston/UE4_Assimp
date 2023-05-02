@@ -52,6 +52,8 @@ public class UE_AssimpLibrary : ModuleRules
         {
 			// Add the import library
 			PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory,"assimp" ,"bin", "libassimp.dylib"));
+                        // Complains because we need zlib.
+			// PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory,"assimp" ,"lib", "libassimp.a"));
 
 			//RuntimeDependencies.Add(Path.Combine(ModuleDirectory,"assimp" , "bin","Release","assimp.dll"));
 

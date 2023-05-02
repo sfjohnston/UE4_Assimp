@@ -382,12 +382,29 @@ FTransform UAssimpFunctionLibrary::aiMatToTransform(aiMatrix4x4 NodeTransform)
 
 	// Note that assimp matrix is transpose of Unreal matrix.
 	// (The compiler will efficiently unroll these loops.)
+#if 0
 	for (int j = 0; j < 4; ++j) {
 		for (int i = 0; i < 4; ++i) {
 			mtx.M[i][j] = NodeTransform[j][i];
 		}
 	}
 	Transform = FTransform(mtx);
+#endif
+
+        aiVector3D scaling;     // construct as x, y, z
+        aiQuaternion rotation; // construct as w, x, y, z
+        aiVector3D position;    // construct as x, y, z
+
+        NodeTransform.Decompose(scaling, rotation, position);
+        
+        FQuat ue_quat(rotation.x, rotation.y, rotation.z, rotation.w); // construct as x, y, z, w
+        FVector ue_translation(position.x, position.y, position.z);
+        FVector ue_scale3d(scaling.x, scaling.y, scaling.z);
+
+        // Constructor order twisted because scale order is scale->rotate->translate
+        Transform = FTransform(ue_quat, ue_translation, ue_scale3d);
+
+        // UE_LOG(LogTemp, Warning, TEXT("This is being run."));
 
 	return Transform;
 }
