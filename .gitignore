@@ -74,6 +74,8 @@ Intermediate/*
 Plugins/*/Intermediate/*
 
 
+# Drit from OS
+.DS_Store
 
 # Cache files for the editor to use
 DerivedDataCache/*
