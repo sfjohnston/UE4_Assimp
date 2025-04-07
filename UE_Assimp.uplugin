@@ -14,11 +14,13 @@
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
     "EnabledByDefault": true,
+    "CanBeUsedWithUnrealHeaderTool": true,
 	"Modules": [
 		{
 			"Name": "UE_Assimp",
 			"Type": "Runtime",
-			"LoadingPhase": "PreDefault"
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [ "Mac", "Win64" ]
 		}
 	],
         "Plugins": [

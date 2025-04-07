@@ -51,20 +51,20 @@ public class UE_AssimpLibrary : ModuleRules
         else if (Target.Platform == UnrealTargetPlatform.Mac)
         {
 			// Add the import library
+if (0 == 1) {
 			PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory,"assimp" ,"bin", "libassimp.dylib"));
-
-			//RuntimeDependencies.Add(Path.Combine(ModuleDirectory,"assimp" , "bin","Release","assimp.dll"));
-
-			// Delay-load the DLL, so we can load it from the right place first
-			// PublicDelayLoadDLLs.Add(Path.Combine(ModuleDirectory,"assimp" , "bin","Release","assimp.dll"));
-
 			Directory.CreateDirectory(BinaryFolder);
 			string AssimpDylib = Path.Combine(ModuleDirectory, "assimp", "bin", "libassimp.dylib");
 			string BinPath =Path.Combine(ModuleDirectory, BinaryFolder, "libassimp.dylib");
-			
-		 CopyFile(AssimpDylib,BinPath);
-			  // Ensure that the DLL is staged along with the executable
-		//	RuntimeDependencies.Add("$(PluginDir)/Binaries/ThirdParty/UE_AssimpLibrary/Win64/ExampleLibrary.dll");
+            CopyFile(AssimpDylib,BinPath);
+} else {
+            string LibraryFileName = "libassimp.5.dylib";
+            string DynLibPath = Path.Combine(BinaryFolder, LibraryFileName);
+            string AssimpDylib = Path.Combine(ModuleDirectory, "assimp", "bin", LibraryFileName);
+            PublicAdditionalLibraries.Add(AssimpDylib);
+            PublicDelayLoadDLLs.Add(DynLibPath);
+            RuntimeDependencies.Add(DynLibPath);
+}
         }
         else if (Target.Platform == UnrealTargetPlatform.Android)
         {
